@@ -1,9 +1,13 @@
 from functools import wraps
 from flask import request, jsonify
+import os
+from dotenv import load_dotenv
 
-# For simplicity, using a hardcoded token
-# In a production environment, you would use a more secure approach
-VALID_TOKEN = "secret-token-123"
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the authentication token from environment
+VALID_TOKEN = os.environ.get('AUTH_TOKEN', 'secret-token-123')
 
 def token_required(f):
     """Decorator for token-based authentication."""

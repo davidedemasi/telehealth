@@ -1,12 +1,17 @@
 import random
 import time
+import os
 from celery import Celery
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize Celery
 celery = Celery(
     'telehealth',
-    broker='redis://localhost:6379/0',
-    backend='redis://localhost:6379/0'
+    broker=os.environ.get('CELERY_BROKER_URL'),
+    backend=os.environ.get('CELERY_RESULT_BACKEND')
 )
 
 # Celery configuration

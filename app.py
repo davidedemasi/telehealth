@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from models import db, Patient
 from auth import token_required
@@ -9,8 +13,8 @@ from tasks import send_notification
 # Initialize Flask app
 app = Flask(__name__)
 
-# Configure database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///telehealth.db')
+# Configure database from environment variables
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize SQLAlchemy with app
